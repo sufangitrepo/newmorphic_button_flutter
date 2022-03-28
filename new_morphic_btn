@@ -1,0 +1,69 @@
+
+class MorphicButton extends StatelessWidget {
+  final Color btnColor;
+  final VoidCallback onClick;
+  final Color leftTopShadowColor;
+  final Color rightBottomShadowColor;
+  final double height;
+  final Color pageBgColor;
+  final double width;
+  final double blurRadius;
+  final double borderRadius;
+  final Widget? child;
+
+  const MorphicButton({
+    this.child,
+    required this.btnColor,
+    required this.pageBgColor,
+    required this.borderRadius,
+    required this.height,
+    required this.width,
+    required this.onClick,
+    required this.leftTopShadowColor,
+    required this.blurRadius,
+    required this.rightBottomShadowColor,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: btnColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+          boxShadow: [
+            BoxShadow(
+                color: leftTopShadowColor,
+                offset: Offset(-width * .05, -height * .05),
+                blurRadius: blurRadius),
+            BoxShadow(
+                color: rightBottomShadowColor,
+                offset: Offset(width * .05, height * .05),
+                blurRadius: blurRadius)
+          ]),
+      child: Material(
+        color: btnColor,
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: InkWell(
+          hoverColor: null,
+          splashFactory: InkSplash.splashFactory,
+          borderRadius: BorderRadius.circular(20),
+          onTap: onClick,
+          child: Container(
+            height: height,
+            width: width,
+            child: Container(
+              height: height,
+              width: width,
+              decoration: BoxDecoration(
+                //color: btnColor,
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+              child: Center(child: child),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
